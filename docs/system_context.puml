@@ -1,0 +1,17 @@
+@startuml TMDB Agent System - System Context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title "System Context Diagram for TMDB Agent System"
+
+Person(user, "End User", "A user interacting with the movie database through natural language queries")
+
+System(tmdbAgentSystem, "TMDB Agent System", "Provides an AI-powered interface to search and analyze movie data stored in a local database")
+
+System_Ext(tmdbAPI, "TMDB API", "External movie database API providing movie and actor data")
+System_Ext(openAIAPI, "OpenAI API", "Provides natural language processing capabilities")
+
+Rel(user, tmdbAgentSystem, "Interacts with using natural language queries via CLI")
+Rel(tmdbAgentSystem, tmdbAPI, "Fetches movie and actor data from", "HTTP/REST")
+Rel(tmdbAgentSystem, openAIAPI, "Uses for query interpretation and response generation", "HTTP/REST")
+
+@enduml 
