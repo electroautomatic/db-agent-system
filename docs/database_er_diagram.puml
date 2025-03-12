@@ -1,0 +1,80 @@
+@startuml "TMDB Agent System - Database ER Diagram"
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <b><u>x</u></b>
+!define foreign_key(x) <i><u>x</u></i>
+!define column(x) <i>x</i>
+
+hide methods
+hide stereotypes
+
+skinparam {
+    ClassBackgroundColor #EEEEEE
+    ClassBorderColor #000000
+    ClassFontColor #000000
+    ClassFontSize 12
+    ClassFontName Arial
+    ArrowColor #404040
+}
+
+title "TMDB Agent System - Database ER Diagram"
+
+table(movies) {
+    primary_key(id): INTEGER
+    column(tmdb_id): INTEGER <<unique>>
+    column(title): VARCHAR(255) <<index>>
+    column(overview): TEXT
+    column(release_date): DATE <<nullable>>
+    column(vote_average): FLOAT <<nullable>>
+    column(vote_count): INTEGER <<nullable>>
+    column(poster_path): VARCHAR(255) <<nullable>>
+    column(backdrop_path): VARCHAR(255) <<nullable>>
+    column(popularity): FLOAT <<nullable>>
+}
+
+table(actors) {
+    primary_key(id): INTEGER
+    column(tmdb_id): INTEGER <<unique>>
+    column(name): VARCHAR(255) <<index>>
+    column(profile_path): VARCHAR(255) <<nullable>>
+    column(popularity): FLOAT <<nullable>>
+    column(biography): TEXT <<nullable>>
+    column(birthday): DATE <<nullable>>
+    column(deathday): DATE <<nullable>>
+    column(place_of_birth): VARCHAR(255) <<nullable>>
+}
+
+table(movie_actor) {
+    foreign_key(movie_id): INTEGER <<PK, FK1>>
+    foreign_key(actor_id): INTEGER <<PK, FK2>>
+}
+
+' Relationships
+movies "1" --o{ "many" movie_actor : "contains"
+actors "1" --o{ "many" movie_actor : "appears in"
+
+note bottom of movie_actor
+  Junction table for the many-to-many
+  relationship between movies and actors.
+  
+  Primary key consists of two foreign keys:
+  - movie_id references movies.id
+  - actor_id references actors.id
+end note
+
+note bottom of movies
+  Stores information about movies
+  retrieved from TMDB API.
+  
+  The tmdb_id field is a unique
+  identifier of the movie in TMDB API.
+end note
+
+note bottom of actors
+  Stores information about actors
+  retrieved from TMDB API.
+  
+  The tmdb_id field is a unique
+  identifier of the actor in TMDB API.
+end note
+
+@enduml 
