@@ -2,6 +2,8 @@
 
 A command-line agent system that interacts with a local Postgres database containing movie data from TMDB API.
 
+[![L1 diagram](./docs/svg/TMDB%20Agent%20System%20-%20System%20Context.svg)]
+
 ## Features
 
 - Automated setup of a local Postgres database with Docker
