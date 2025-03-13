@@ -1,0 +1,30 @@
+@startuml "TMDB Agent System - Container Diagram (L2)"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+LAYOUT_WITH_LEGEND()
+
+title "TMDB Agent System - Container Diagram (L2)"
+
+Person(user, "End User", "A user interacting with the movie database through natural language queries")
+
+System_Boundary(tmdb_system, "TMDB Agent System") {
+    Container(app_container, "App Container", "Python/Docker", "Contains CLI interface, database initialization, API integration, and LangChain-based AI agent")
+    
+    ContainerDb(postgres_container, "PostgreSQL Database", "PostgreSQL 14", "Stores structured movie and actor data with relationships")
+    
+    Container(adminer_container, "Adminer", "Web UI/Port 8080", "Provides web interface for PostgreSQL database management")
+}
+
+System_Ext(tmdb_api, "TMDB API", "External movie database API with Bearer token authentication")
+System_Ext(openai_api, "OpenAI API", "Provides LLM capabilities through the gpt-3.5-turbo model")
+
+
+Rel(user, app_container, "Interacts with", "Command-line interface")
+Rel_R(app_container, tmdb_api, "Fetches movie and actor data from", "HTTP/REST with Bearer token")
+Rel_R(app_container, openai_api, "Sends queries to", "HTTP/REST with API key")
+Rel_D(app_container, postgres_container, "Reads from and writes to", "SQL via SQLAlchemy")
+Rel(user, adminer_container, "Manages database via", "HTTP/Browser on port 8080")
+Rel_L(adminer_container, postgres_container, "Connects to", "SQL")
+
+@enduml 
