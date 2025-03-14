@@ -28,7 +28,7 @@ services:
       - TMDB_API_KEY=${TMDB_API_KEY}
     volumes:
       - ./app:/app
-    command: python -m app.cli.main
+    command: python -m app.database.init_db
     tty: true
     stdin_open: true
     

@@ -11,4 +11,4 @@ RUN mkdir -p /app
 # Python will search modules from the working directory
 ENV PYTHONPATH=/
 
-CMD ["python", "-m", "app.database.main"] 
+CMD ["python", "-m", "app.database.init_db"] 
