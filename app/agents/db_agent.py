@@ -3,9 +3,10 @@ from typing import List, Dict, Any, Optional, Callable
 from sqlalchemy.orm import Session
 import json
 
-from langchain.agents import AgentExecutor, create_sql_agent
-from langchain.agents.agent_toolkits import SQLDatabaseToolkit
-from langchain.sql_database import SQLDatabase
+from langchain.agents import AgentExecutor  
+from langchain_community.agent_toolkits.sql.base import create_sql_agent  
+from langchain_community.agent_toolkits import SQLDatabaseToolkit
+from langchain_community.utilities import SQLDatabase
 from langchain_openai import ChatOpenAI
 from langchain.tools import Tool
 from langchain.prompts import PromptTemplate
