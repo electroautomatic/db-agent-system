@@ -56,11 +56,9 @@ def display_welcome():
 Welcome to the TMDB Agent System! This CLI allows you to chat with an AI agent about movies and actors.
 
 ## Example Questions:
-* What are the top 5 highest-rated movies?
-* Who starred in Inception?
-* What movies were released in 2022?
-* Tell me about Tom Hanks
-* What popular action movies are in the database?
+* "Find write the top 3 highest-rated movies."
+* "Who played in the movie Gladiator 2?"
+* "What is most popular actor?"
 
 Type 'exit' or 'quit' to end the session.
 """
